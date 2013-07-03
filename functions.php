@@ -113,4 +113,4 @@ function myplugin_save_postdata( $post_id ) {
   
 }
 
-require_once('updater.php');
+require_once('functions/updater.php');

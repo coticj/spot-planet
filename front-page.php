@@ -46,7 +46,7 @@ function createMarker(latlng,title,html,category,icon) {
         gmarkers.push(marker);
 
     google.maps.event.addListener(marker, 'click', function() {
-		map.setCenter(latlng);
+		map.panTo(latlng);
 		(jQuery)('#infoModal').modal({
 							backdrop: false
 						});
