@@ -5,34 +5,11 @@ get_header(); ?>
 	var items, gmarkers = [];
 	// track marker that is currently bouncing
 var currentMarker = null;
-	
-    function loadResults(data) {
-        
-        if (data.posts.length > 0) {
-            items = data.posts;
 
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-
-			var lat = item.custom_fields.lat;
-          var lng = item.custom_fields.lng;
-          var point = new google.maps.LatLng(lat,lng);
-          var html = item.excerpt;
-          var category = item.categories[0].title;
-		  var title = item.title_plain;
-		  var icon = '<?php echo esc_url( home_url( ' / ' ) ); ?>media/' + item.categories[0].id + '.png';
-		  
-          // create the marker
-          var marker = createMarker(point,title,html,category,icon);
-            }
-        }
-        
-
-    }
 
 	      // A function to create the marker and set up the event window
-function createMarker(latlng,title,html,category,icon) {
-    var contentString = html;
+function createMarker(latlng,title,id,category,icon) {
+    
     var marker = new google.maps.Marker({
         position: latlng,
          map: map,
@@ -50,8 +27,7 @@ function createMarker(latlng,title,html,category,icon) {
 		(jQuery)('#infoModal').modal({
 							backdrop: false
 						});
-		(jQuery)('#infoModalLabel').html(title);
-        (jQuery)('#pLabel').html(html);
+		(jQuery)('#infoModal').load('<?php echo esc_url( home_url( ' / ' ) ); ?>wp-content/themes/spotplanet/functions/get_content.php?sid='+id);
          if (currentMarker) currentMarker.setAnimation(null);
         // set this marker to the currentMarker
         currentMarker = marker;
@@ -89,9 +65,21 @@ function createMarker(latlng,title,html,category,icon) {
 
         (jQuery)('#b_map').css('height', (h - offsetTop));
 
-        var xhr = (jQuery).getJSON('<?php echo esc_url( home_url( ' / ' ) ); ?>?json=1');
-
-        xhr.done(loadResults);
+        		
+		(jQuery).getJSON("<?php echo esc_url( home_url( ' / ' ) ); ?>wp-content/themes/spotplanet/functions/markers_json.php", function(data){
+    (jQuery).each(data, function (index, value) {
+          var lat = value.lat;
+          var lng = value.lng;
+          var point = new google.maps.LatLng(lat,lng);
+          var id = value.id;
+          var category = value.category;
+		  var title = value.title;
+		  var icon = '<?php echo esc_url( home_url( ' / ' ) ); ?>media/' + value.category + '.png';
+		  
+          // create the marker
+          var marker = createMarker(point,title,id,category,icon);
+    });
+});
 		
 		(jQuery)('#infoModal').modal({show: true, backdrop: false})
 

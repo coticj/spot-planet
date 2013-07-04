@@ -36,8 +36,25 @@ if ( function_exists('register_sidebar') )
 /* Disable WordPress Admin Bar for all users but admins. */
   show_admin_bar(false);	
   //CUSTOM BOXES
+add_action( 'init', 'create_post_type' );
+function create_post_type() {
+	register_post_type( 'spots',
+		array(
+			'labels' => array(
+				'name' => __( 'Spoti' ),
+				'singular_name' => __( 'Spot' )
+			),
+		'taxonomies' => array('category'),
+		'supports' => array( 'title','editor', 'thumbnail' ),
+		'public' => true,
+		'has_archive' => true,
+		)
+	);
+}
+add_theme_support( 'post-thumbnails' ); 
+add_post_type_support('spots', 'excerpt');
   /* Define the custom box */
-
+  
 add_action( 'add_meta_boxes', 'myplugin_add_custom_box' );
 
 // backwards compatible (before WP 3.0)
@@ -48,7 +65,7 @@ add_action( 'save_post', 'myplugin_save_postdata' );
 
 /* Adds a box to the main column on the Post and Page edit screens */
 function myplugin_add_custom_box() {
-    $screens = array( 'post' );
+    $screens = array( 'spots' );
     foreach ($screens as $screen) {
         add_meta_box(
             'coordinates',
