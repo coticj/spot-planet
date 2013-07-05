@@ -8,10 +8,12 @@
 if (!defined('WP_PLUGIN_URL')) {
 require_once( realpath('../../../../').'/wp-config.php' );
 }
+require_once("../Tax-meta-class/Tax-meta-class.php");
 
 
     $spot= get_post(intval($_GET["sid"]));
- 
+	
+	 
   ?>
   <div class="modal-header">
             <button class="close" data-dismiss="modal" type="button">×</button>
@@ -27,3 +29,4 @@ require_once( realpath('../../../../').'/wp-config.php' );
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal">Close</button>
         </div>
+		

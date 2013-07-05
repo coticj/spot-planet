@@ -8,6 +8,12 @@
     }
     add_action( 'init', 'register_theme_menus' );
 	
+	//include the main class file
+require_once("Tax-meta-class/Tax-meta-class.php");
+	
+	//custom taxonomy field
+	require_once("functions/custom_tax_fields.php");
+	
 	//scripts
 	
 function wpbootstrap_scripts_with_jquery()
