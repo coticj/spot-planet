@@ -1,5 +1,9 @@
  
     </div> <!-- /container -->
+	
+	<?php
+	//only show second navbar on front-page.php
+	if (is_front_page()) { ?>
     <div class="navbar navbar-fixed-bottom">
   <div class="navbar-inner">
     <div class="container">
@@ -17,6 +21,7 @@
     </div>
   </div>
 </div>
+<?php } ?>
     <?php wp_footer(); ?>
 
   </body>
