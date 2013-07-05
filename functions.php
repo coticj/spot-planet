@@ -18,14 +18,24 @@ require_once("Tax-meta-class/Tax-meta-class.php");
 	
 function wpbootstrap_scripts_with_jquery()
 {
+		
 	// Register the script like this for a theme:
 	wp_register_script( 'bootstrap-script', get_template_directory_uri() . '/js/bootstrap.min.js', array( 'jquery' ) );
-	wp_register_script( 'gmapsjs-script', get_template_directory_uri() . '/js/gmaps.js', array( 'jquery' ) );
 	wp_register_script( 'gmaps-script', 'http://maps.google.com/maps/api/js?sensor=true', array( 'jquery' ) );
+	wp_register_script( 'front-page-script', get_template_directory_uri() . '/js/front-page.js', array( 'jquery' ) );
+	
+	
+	// Settings for dynamic js
+	$settings = array(
+            'url' => esc_url( home_url( ' / ' ) )
+        );
+	
+	wp_localize_script('front-page-script', 'settings', $settings);
+	
 	// For either a plugin or a theme, you can then enqueue the script:
 	wp_enqueue_script( 'bootstrap-script' );
 	wp_enqueue_script( 'gmaps-script' );
-	wp_enqueue_script( 'gmapsjs-script' );
+	wp_enqueue_script( 'front-page-script' );
 }
 add_action( 'wp_enqueue_scripts', 'wpbootstrap_scripts_with_jquery' );
 
