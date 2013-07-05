@@ -47,10 +47,6 @@ function createMarker(latlng,title,id,category,icon) {
         (jQuery)('#b_map').css('height', (h - offsetTop));
     }).resize();
 
-	
-
-
-
     (jQuery)(document).ready(function () {
         var mapOptions = {
       zoom: 8,
@@ -74,7 +70,7 @@ function createMarker(latlng,title,id,category,icon) {
           var id = value.id;
           var category = value.category;
 		  var title = value.title;
-		  var icon = '<?php echo esc_url( home_url( ' / ' ) ); ?>media/' + value.category + '.png';
+		  var icon = value.icon;
 		  
           // create the marker
           var marker = createMarker(point,title,id,category,icon);

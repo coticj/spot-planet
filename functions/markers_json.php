@@ -25,14 +25,15 @@ foreach($posts as $p){
     $lat = get_post_meta($p,"lat",true);
     $other= get_post($p);
 	
-
+	$icon = get_tax_meta($other->post_category[0],'ba_image_field_id',true);
+		
 	$spots[] = array(
          'id' => $p,
          'lng' => $lng,
          'lat' => $lat,
 		 'title' => $other->post_title,
-		 'category' => $other->post_category[0]
-		 
+		 'category' => $other->post_category[0],
+		 'icon' => $icon['src']		
 		 );
 	
     

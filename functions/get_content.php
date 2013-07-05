@@ -13,6 +13,7 @@ require_once("../Tax-meta-class/Tax-meta-class.php");
 
     $spot= get_post(intval($_GET["sid"]));
 	
+	
 	 
   ?>
   <div class="modal-header">
